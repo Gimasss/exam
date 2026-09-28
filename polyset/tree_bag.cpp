@@ -43,7 +43,7 @@ void tree_bag::insert(int item) {
 	if (tree == NULL) {
 		// std::cout << "tree is null - adding" << std::endl;
 		tree = new_node;
-	} 
+	}
 	else {
 		node *current = tree;
 		while (true) {

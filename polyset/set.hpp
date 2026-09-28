@@ -1,12 +1,12 @@
 #pragma once
 
-#include "searchable_array_bag.hpp"
 #include "searchable_bag.hpp"
+#include "searchable_array_bag.hpp"
 
 
 class set : public searchable_bag {
 	private:
-		searchable_bag &bag;
+		searchable_bag &_bag;
 
 	public:
 		set(searchable_bag &bag);
@@ -21,5 +21,5 @@ class set : public searchable_bag {
 
 		bool has(int) const;
 
-		searchable_bag &get_bag();
+		const searchable_bag &get_bag();
 };

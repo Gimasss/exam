@@ -9,8 +9,7 @@ searchable_array_bag::searchable_array_bag(const searchable_array_bag &other) : 
 searchable_array_bag &searchable_array_bag::operator=(const searchable_array_bag &other)
 {
 	if (this != &other)
-		//array_bag::operator=(other);
-		*this = searchable_array_bag(other);
+		array_bag::operator=(other);
 	return *this;
 }
 
