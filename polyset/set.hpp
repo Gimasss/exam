@@ -7,11 +7,12 @@
 class set : public searchable_bag {
 	private:
 		searchable_bag &_bag;
+		set();
+		set &operator=(const set &other);
 
 	public:
 		set(searchable_bag &bag);
-		set(set &other);
-		set &operator=(const set &other) = delete;
+		set(const set &other);
 		~set();
 
 		void insert (int);
@@ -21,5 +22,5 @@ class set : public searchable_bag {
 
 		bool has(int) const;
 
-		const searchable_bag &get_bag();
+		const searchable_bag &get_bag() const;
 };

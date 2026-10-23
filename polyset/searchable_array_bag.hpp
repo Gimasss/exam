@@ -6,7 +6,7 @@
 
 //estendo array bag --- adding features to the father class as a son
 
-class searchable_array_bag : virtual public array_bag, public searchable_bag { //AGGIUNTO VIRTUAL
+class searchable_array_bag : public array_bag, public searchable_bag { //AGGIUNTO VIRTUAL
 
 	public :
 		searchable_array_bag();

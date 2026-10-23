@@ -3,7 +3,7 @@
 set::set(searchable_bag &bag): _bag(bag) {
 }
 
-set::set(set &other): _bag(other) {
+set::set(const set &other): _bag(other._bag) {
 }
 
 set::~set() {}
@@ -30,6 +30,6 @@ bool set::has(int val) const {
 	return _bag.has(val);
 }
 
-const searchable_bag &set::get_bag() {
+const searchable_bag &set::get_bag() const {
 	return _bag;
 }
