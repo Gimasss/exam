@@ -9,17 +9,6 @@ bigint::bigint(unsigned long num) {
 	ss << num;
 
 	this->_digits = ss.str();
-
-	//if (num == 0){
-	//	_digits = "0";
-	//	return;
-	//}
-	//_digits = "";
-	//while (num > 0){
-	//	char digit = '0' + (num % 10);
-	//	_digits.insert(_digits.begin(), digit);
-	//	num /= 10;
-	//}
 }
 
 bigint::bigint(const bigint &other) : _digits(other._digits) {}
@@ -65,14 +54,14 @@ static std::string addStrings(const std::string &a, const std::string &b)
 	return result;
 }
 
-bigint &bigint::operator+=(const bigint &rhs){
-	_digits = addStrings(_digits, rhs._digits);
+bigint &bigint::operator+=(const bigint &other){
+	_digits = addStrings(_digits, other._digits);
 	return (*this);
 }
 
-bigint bigint::operator+(const bigint &rhs) const {
+bigint bigint::operator+(const bigint &other) const {
 	bigint result (*this);
-	result += rhs;
+	result += other;
 	return result;
 }
 
@@ -89,31 +78,33 @@ bigint bigint::operator++(int)      // postfisso: parametro int fittizio, mai us
 }
 
 //---shift
-bigint bigint::operator<<(const bigint &rhs) const {
+bigint bigint::operator<<(const bigint &other) const {
 	bigint result(*this);
-	result <<= rhs;
+	result <<= other;
 	return result;
 }
-bigint bigint::operator>>(const bigint &rhs) const {
+bigint bigint::operator>>(const bigint &other) const {
 	bigint result(*this);
-	result >>= rhs;
+	result >>= other;
 	return result;
 }
 
-bigint &bigint::operator<<=(const bigint &rhs) {
+bigint &bigint::operator<<=(const bigint &other) {
 	unsigned long num;
 	std::stringstream ss;
-	ss << rhs._digits;
+	ss << other._digits;
 	ss >> num;
 
+	if (this->_digits.size() == 0)
+		return *this;
 	this->_digits.insert(this->_digits.end(), num, '0');
 	return (*this);
 }
 
-bigint &bigint::operator>>=(const bigint &rhs) {
+bigint &bigint::operator>>=(const bigint &other) {
 	unsigned long num;
 	std::stringstream ss;
-	ss << rhs._digits;
+	ss << other._digits;
 	ss >> num;
 
 	if (this->_digits.size() <= num){
@@ -121,10 +112,11 @@ bigint &bigint::operator>>=(const bigint &rhs) {
 		return (*this);
 	}
 
-	for (unsigned long i = 0; i < num; i++){
-		this->_digits.pop_back();
+	for (unsigned long i = 0; i < num; i++)
+	{
+		if (this->_digits.size() <= num)
+			this ->_digits.erase(this->_digits.size() - 1);
 	}
-
 	return (*this);
 }
 
@@ -143,26 +135,26 @@ int compareStrings(const std::string &a, const std::string &b)
 }
 
 
-bool bigint::operator==(const bigint &rhs) const {
-	return (compareStrings(this->_digits, rhs._digits) == 0);
+bool bigint::operator==(const bigint &other) const {
+	return (compareStrings(this->_digits, other._digits) == 0);
 
 }
-bool bigint::operator!=(const bigint &rhs) const {
-	return (compareStrings(this->_digits, rhs._digits) != 0);
+bool bigint::operator!=(const bigint &other) const {
+	return (compareStrings(this->_digits, other._digits) != 0);
 }
 
-bool bigint::operator>(const bigint &rhs) const {
-	return (compareStrings(this->_digits, rhs._digits) > 0);
+bool bigint::operator>(const bigint &other) const {
+	return (compareStrings(this->_digits, other._digits) > 0);
 }
-bool bigint::operator<(const bigint &rhs) const {
-	return (compareStrings(this->_digits, rhs._digits) < 0);
+bool bigint::operator<(const bigint &other) const {
+	return (compareStrings(this->_digits, other._digits) < 0);
 }
 
-bool bigint::operator>=(const bigint &rhs) const {
-	return (*this > rhs || *this == rhs);
+bool bigint::operator>=(const bigint &other) const {
+	return (*this > other || *this == other);
 }
-bool bigint::operator<=(const bigint &rhs) const {
-	return (*this < rhs || *this == rhs);
+bool bigint::operator<=(const bigint &other) const {
+	return (*this < other || *this == other);
 }
 
 
